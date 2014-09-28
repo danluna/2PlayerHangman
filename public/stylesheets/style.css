@@ -1,0 +1,40 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+#header {
+  margin-bottom: 15em;
+}
+
+#title {
+  font-size: 5em;
+}
+
+#joinArea, #gameArea, #header {
+  text-align: center;
+}
+
+#gameArea {
+  visibility: hidden;
+}
+
+#joinButton {
+  margin-bottom: 2em;
+}
+
+#joinArea > p {
+  font-size: 16px;
+}
+
+#guess, #word{
+  font-size: 3em;
+}
+
+#word {
+  margin-bottom: 1em;
+}
