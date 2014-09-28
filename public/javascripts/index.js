@@ -1,7 +1,7 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
   $('#joinButton').click(function() {
     $('#joinArea').hide();
-    $('#gameArea').css("visibility", "visible");
-    $('#gameArea').show();
+    $('#gamez').css("visibility", "visible");
+    $('#gamez').show();
   });
-});
+});*/
