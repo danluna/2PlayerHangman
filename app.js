@@ -32,13 +32,29 @@ app.use('/', routes);
 // game 
 var playersConnected = 0,
     lettersGuessed = [],
-    playerTurn = 1;
+    playerTurn = 1,
+    Player1, Player2,  // Stores Socket for each player
+    playersInGame = 0;
 
 io.on('connection', function(socket) {
-    console.log('Player 1 connected');
+    console.log('connected');
 
     socket.on('join game', function(msg){
-        console.log('Player 1 Joined the Game');
+        playersInGame++;
+
+        // Store socket for the recently connected player
+        if(playersInGame == 1) {
+            Player1 = socket;
+            console.log('Player ' + playersInGame + ' Joined the Game')
+        }
+        if(playersInGame == 2) {
+            Player2 = socket;
+            Player1.emit('game ready');  // Tell both players we are ready to begin
+            Player2.emit('game ready');
+            
+            console.log('Player ' + playersInGame + ' Joined the Game')
+        }
+
     });
 });
 
