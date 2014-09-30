@@ -39,6 +39,10 @@ var playersConnected = 0,
 io.on('connection', function(socket) {
     console.log('connected');
 
+    // Let the home page know how many players are
+    // still needed to begin the game
+    socket.emit('players needed', 2 -playersInGame);
+
     socket.on('join game', function(msg){
         playersInGame++;
 
@@ -51,7 +55,7 @@ io.on('connection', function(socket) {
             Player2 = socket;
             Player1.emit('game ready');  // Tell both players we are ready to begin
             Player2.emit('game ready');
-            
+
             console.log('Player ' + playersInGame + ' Joined the Game')
         }
 

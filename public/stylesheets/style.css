@@ -19,7 +19,7 @@ a {
   text-align: center;
 }
 
-#gamez, #waiting{
+#game, #waiting{
   visibility: hidden;
 }
 

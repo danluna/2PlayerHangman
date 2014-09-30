@@ -9,7 +9,14 @@ $(document).ready(function() {
     $('#waiting').fadeIn(1000);
   });
 
+  socket.on('players needed', function(msg) {
+    $('#playersNeeded').html(msg);
+  });
+
   socket.on('game ready', function() {
-    $('#gamez').css('visibility', 'hidden');
+    $('#waiting').html
+    $('#waiting').css('visibility', 'hidden');
+    $('#game').css('visibility', 'visible');
+    $('#game').fadeIn(1000);
   });
 });
