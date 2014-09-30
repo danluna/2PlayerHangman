@@ -4,8 +4,9 @@ $(document).ready(function() {
   $('#joinButton').click(function(){
     socket.emit('join game', 'hi');
     $('#joinArea').hide();
-    $('#gamez').css("visibility", "visible");
-    $('#gamez').show();
+    $('#waiting').hide();
+    $('#waiting').css("visibility", "visible");
+    $('#waiting').fadeIn(1000);
   });
 
   socket.on('game ready', function() {

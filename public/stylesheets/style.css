@@ -15,11 +15,11 @@ a {
   font-size: 5em;
 }
 
-#joinArea, #gameArea, #header, #guessButtonArea, #lettersGuessed, #triesRemaining {
+#joinArea, #gameArea, #header, #guessButtonArea, #lettersGuessed, #triesRemaining, #waiting {
   text-align: center;
 }
 
-#gamez{
+#gamez, #waiting{
   visibility: hidden;
 }
 
@@ -58,3 +58,8 @@ a {
   font-size: 2em;
   font-weight: bold;
 }
+
+#p2text {
+  color: blue;
+}
+
