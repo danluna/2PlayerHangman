@@ -79,8 +79,10 @@ io.on('connection', function(socket) {
     // Guess button click triggered event
     socket.on('guess', function(letter) {
 
+        var alreadyGuessed = false;
         // Check if this letter has already been guessed
         if(lettersGuessed.indexOf(letter) != -1) {
+            alreadyGuessed = true;
             console.log('Letters has already been guessed');
             if(playerTurn==1) {
                 Player1.emit('already guessed');
@@ -142,12 +144,14 @@ io.on('connection', function(socket) {
             else { // The letter was not found
                 Player1.emit('wrong guess', letter);
                 Player2.emit('wrong guess', letter);
-                letterWasFound = false;
+                //letterWasFound = false; delete this?
             }
         }
 
-        if(playerTurn ==1 && letterFound) { playerTurn++; }
-        else { playerTurn--; }
+        if(!alreadyGuessed) {
+            if(playerTurn ==1) { playerTurn++; }
+            else { playerTurn--; }
+        }
 
     });
 });

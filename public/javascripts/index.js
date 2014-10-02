@@ -20,9 +20,10 @@ $(document).ready(function() {
 
     // Check that the guess was not empty
     if(letter.length == 0) {
-      $('#guessEmpty').hide();
-      $('#guessEmpty').css('visibility', 'visible')
-        .fadeIn(1000);
+      $('#guessWarning').hide();
+      $('#guessWarning').fadeIn(1000);
+      $('#guessWarning').html("Please submit a letter");
+      setTimeout(function() { $('#guessWarning').fadeOut(1000); }, 5000);
     }
     else {
       $('#guessEmpty').css('visibility', 'hidden');
@@ -80,7 +81,7 @@ $(document).ready(function() {
   });
 
   socket.on('already guessed', function() {
-    $('#guessWarning').html('That letter has already been guessed!');
+    $('#guessWarning').html('That letter has already been guessed');
     $('#guessWarning').fadeIn(1000);
     setTimeout(function() { $('#guessWarning').fadeOut(1000); }, 5000);
   });
@@ -134,6 +135,9 @@ $(document).ready(function() {
     $('#counter').html(5);
     var counter = 4;
     var timesRun = 0;
+
+    // Run a counter for the user to see before they
+    // are redirected back to the start page
     var interval = setInterval( function() {
       $('#counter').html(counter);
       if(timesRun==4) { 
