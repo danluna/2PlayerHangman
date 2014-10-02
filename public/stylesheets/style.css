@@ -15,7 +15,8 @@ a {
   font-size: 5em;
 }
 
-#joinArea, #word, #header, #guessButtonArea, #lettersGuessed, #triesRemaining, #waiting, #turn {
+#joinArea, #word, #header, #guessButtonArea, #lettersGuessed, 
+#triesRemaining, #waiting, #turn, #gameOverRedirect, #gratz {
   text-align: center;
 }
 
@@ -70,6 +71,17 @@ a {
 
 #waitForDisconnect {
   color: blue;
+}
+
+#gameOverRedirect, #gratz {
+  font-size: 2em;
+}
+
+#gratz, #gameOverRedirect, #waitForDisconnect {
   font-weight: bold;
+}
+
+#turn {
+  color: blue;
 }
 

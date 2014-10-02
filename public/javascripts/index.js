@@ -61,12 +61,10 @@ $(document).ready(function() {
 
     turn = oneOrTwo;
     if(oneOrTwo) {
-      $('#turn').html('Your turn!')
-          .css('color', 'green');
+      $('#turn').html('Your turn!');
     }
     else {
-      $('#turn').html('Your teammate is currently guessing a letter...')
-          .css('color', "blue");
+      $('#turn').html('Your teammate is currently guessing a letter...');
       $('#guessButton').prop('disabled', true);
     }
   });
@@ -123,7 +121,29 @@ $(document).ready(function() {
 
   socket.on('game won', function(word) {
     $('#word').html(word);
+    $('#gratz').html("Congratulations!")
+    //$('#turn').html("You and your teammate have won!");
+    $('#gameOverRedirect').html('You will be redirected to the start area in: <span id="counter"></span>');
+    $('#guessButtonArea').hide();
+    $('#lettersGuessed').hide();
+    $('#triesRemaining').hide();
+    $('#guess').hide();
+    $('#turn').hide();
+
+    $('#counter').html(5);
+    var counter = 4;
+    var timesRun = 0;
+    var interval = setInterval( function() {
+      $('#counter').html(counter);
+      if(timesRun==4) { 
+        window.location.href = 'http://localhost:3000';
+        clearInterval(interval);
+      }
+
+      timesRun++;
+      counter--;
+    }, 1000);
   });
-  
+ 
 });
 

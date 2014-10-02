@@ -34,7 +34,8 @@ var playersConnected = 0,
     lettersGuessed = [],
     playerTurn = 1,
     playersInGame = 0,
-    word = "testword";
+    word = "testword",
+    letterFound = true;
 
 // Boolean array mapping true to word spot already guessed correctly and false otherwise
 var lettersFound = new Array(word.length).map(Boolean.prototype.valueOf, false);
@@ -77,6 +78,7 @@ io.on('connection', function(socket) {
 
     // Guess button click triggered event
     socket.on('guess', function(letter) {
+
         // Check if this letter has already been guessed
         if(lettersGuessed.indexOf(letter) != -1) {
             console.log('Letters has already been guessed');
@@ -88,7 +90,7 @@ io.on('connection', function(socket) {
             }
         }
         else { // This letter had not been guessed
-            var letterFound = false;
+            letterFound = false;
             lettersGuessed.push(letter);
 
             // testing delete this
@@ -128,8 +130,8 @@ io.on('connection', function(socket) {
 
                 if(wordComplete) {
                     // Emit game has been won
-                    socket.emit('game won', wordProgress);
-                    //console.log(wordProgress);
+                    Player1.emit('game won', wordProgress);
+                    Player2.emit('game won', wordProgress);
                 }
                 else {  // Emit the new partial word
                     Player1.emit('letter found', wordProgress, letter);
@@ -140,10 +142,11 @@ io.on('connection', function(socket) {
             else { // The letter was not found
                 Player1.emit('wrong guess', letter);
                 Player2.emit('wrong guess', letter);
+                letterWasFound = false;
             }
         }
 
-        if(playerTurn ==1) { playerTurn++; }
+        if(playerTurn ==1 && letterFound) { playerTurn++; }
         else { playerTurn--; }
 
     });
