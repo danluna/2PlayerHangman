@@ -3,8 +3,9 @@ $(document).ready(function() {
   var turn; // Is it currently our turn?
   var triesLeft = 8;
 
-  // Start with hidden "Wait for player to leave" message
+  // Hide error and warning messages for now
   $('#waitForDisconnect').hide();
+  $('#guessWarning').hide();
 
   $('#joinButton').click(function(){
     socket.emit('join game', 'hi');
@@ -81,7 +82,8 @@ $(document).ready(function() {
   });
 
   socket.on('already guessed', function() {
-    $('#guessEmpty').html('That letter has already been guessed. Choose another!');
+    $('#guessWarning').html('That letter has already been guessed. Choose another!');
+    $('#guessWarning').fadeIn(1000);
   });
 
   socket.on('letter found', function(word, letter) {
@@ -102,9 +104,21 @@ $(document).ready(function() {
     }
   });
 
-  socket.on('wrong guess', function() {
+  socket.on('wrong guess', function(letter) {
     triesLeft--;
     $('#tries').html(triesLeft);
+    $('#lettersGuessed').append("" + letter + " ");
+
+    if(turn) {
+      turn = false;
+      $('#turn').html("Your teammate is currently guessing a letter...");
+      $('#guessButton').prop('disabled', true);
+    }
+    else {  // It will now be 'this' players turn
+      turn = true;
+      $('#turn').html("Your turn!");
+      $('#guessButton').prop('disabled', false);
+    }
   });
 
   socket.on('game won', function(word) {

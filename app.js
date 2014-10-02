@@ -81,10 +81,10 @@ io.on('connection', function(socket) {
         if(lettersGuessed.indexOf(letter) != -1) {
             console.log('Letters has already been guessed');
             if(playerTurn==1) {
-                Player1.emit('alreadyGuessed');
+                Player1.emit('already guessed');
             }
             else {
-                Player2.emit('alreadyGuessed');
+                Player2.emit('already guessed');
             }
         }
         else { // This letter had not been guessed
@@ -138,10 +138,13 @@ io.on('connection', function(socket) {
                 }
             }
             else { // The letter was not found
-                socket.emit('wrong guess');
+                Player1.emit('wrong guess', letter);
+                Player2.emit('wrong guess', letter);
             }
         }
 
+        if(playerTurn ==1) { playerTurn++; }
+        else { playerTurn--; }
 
     });
 });

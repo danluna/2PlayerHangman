@@ -19,7 +19,7 @@ a {
   text-align: center;
 }
 
-#game, #waiting, #guessWarning{
+#game, #waiting {
   visibility: hidden;
 }
 
