@@ -19,7 +19,7 @@ a {
   text-align: center;
 }
 
-#game, #waiting, #guessEmpty{
+#game, #waiting, #guessWarning{
   visibility: hidden;
 }
 
@@ -51,7 +51,7 @@ a {
   margin-top: 1em;
 }
 
-#lettersGuessed, #triesRemaining, #guessEmpty{
+#lettersGuessed, #triesRemaining, #guessWarning{
   font-size: 2em;
   font-weight: bold;
 }

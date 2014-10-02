@@ -33,7 +33,11 @@ app.use('/', routes);
 var playersConnected = 0,
     lettersGuessed = [],
     playerTurn = 1,
-    playersInGame = 0;
+    playersInGame = 0,
+    word = "testword";
+
+// Boolean array mapping true to word spot already guessed correctly and false otherwise
+var lettersFound = new Array(word.length).map(Boolean.prototype.valueOf, false);
 
 var Player1, Player2;  // Stores Socket for joined players
     
@@ -59,8 +63,8 @@ io.on('connection', function(socket) {
             Player2 = socket;
             // Tell players we are ready to begin
             // True flag lets the player know if they are 1 or 2
-            Player1.emit('game ready', true);
-            Player2.emit('game ready', false);
+            Player1.emit('game ready', true, word.length);
+            Player2.emit('game ready', false, word.length);
 
             // Tell connections still on home screen that they cannot join
             // the game at this point. (2 players max.)
@@ -71,8 +75,74 @@ io.on('connection', function(socket) {
 
     });
 
+    // Guess button click triggered event
     socket.on('guess', function(letter) {
-        console.log('letter is empty ' + letter + " after");
+        // Check if this letter has already been guessed
+        if(lettersGuessed.indexOf(letter) != -1) {
+            console.log('Letters has already been guessed');
+            if(playerTurn==1) {
+                Player1.emit('alreadyGuessed');
+            }
+            else {
+                Player2.emit('alreadyGuessed');
+            }
+        }
+        else { // This letter had not been guessed
+            var letterFound = false;
+            lettersGuessed.push(letter);
+
+            // testing delete this
+            console.log('letter not been guessed');
+            console.log(lettersFound);
+
+            // Look through the word for guess match
+            for(var i = 0; i < word.length; i++) {
+                if(word.charAt(i) == letter) {
+                    lettersFound[i] = true;
+                    letterFound = true;
+                }
+            }
+
+
+            // Update client based on having guessed correctly
+            if(letterFound) {
+                var wordComplete = true;
+                // Check if the complete word has been guessed
+                for(var i = 0; i < word.length; i++) {
+                    if(!lettersFound[i]) {
+                        wordComplete = false;
+                        i = word.length;
+                    }
+                }
+
+                var wordProgress = '';
+                // Construct the word to be passed to the client
+                for(var i = 0; i < word.length; i++) {
+                    if(lettersFound[i]) {
+                        wordProgress += word.charAt(i) + " ";
+                    }
+                    else {
+                        wordProgress += "_ ";
+                    }
+                }
+
+                if(wordComplete) {
+                    // Emit game has been won
+                    socket.emit('game won', wordProgress);
+                    //console.log(wordProgress);
+                }
+                else {  // Emit the new partial word
+                    Player1.emit('letter found', wordProgress, letter);
+                    Player2.emit('letter found', wordProgress, letter);
+                    //console.log(wordProgress);
+                }
+            }
+            else { // The letter was not found
+                socket.emit('wrong guess');
+            }
+        }
+
+
     });
 });
 
