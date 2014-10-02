@@ -33,18 +33,22 @@ app.use('/', routes);
 var playersConnected = 0,
     lettersGuessed = [],
     playerTurn = 1,
-    Player1, Player2,  // Stores Socket for each player
     playersInGame = 0;
+
+var Player1, Player2;  // Stores Socket for joined players
+    
 
 io.on('connection', function(socket) {
     console.log('connected');
 
-    // Let the home page know how many players are
-    // still needed to begin the game
-    socket.emit('players needed', 2 -playersInGame);
+    // Let the home page know how many players are needed to begin the game
+    socket.emit('players needed', 2 - playersInGame);
 
     socket.on('join game', function(msg){
         playersInGame++;
+
+        // Update players still in "Join Game screen" 
+        io.emit('updatePlayers', 2 - playersInGame);
 
         // Store socket for the recently connected player
         if(playersInGame == 1) {
@@ -53,12 +57,22 @@ io.on('connection', function(socket) {
         }
         if(playersInGame == 2) {
             Player2 = socket;
-            Player1.emit('game ready');  // Tell both players we are ready to begin
-            Player2.emit('game ready');
+            // Tell players we are ready to begin
+            // True flag lets the player know if they are 1 or 2
+            Player1.emit('game ready', true);
+            Player2.emit('game ready', false);
+
+            // Tell connections still on home screen that they cannot join
+            // the game at this point. (2 players max.)
+            io.emit('closeJoin');
 
             console.log('Player ' + playersInGame + ' Joined the Game')
         }
 
+    });
+
+    socket.on('guess', function(letter) {
+        console.log('letter is empty ' + letter + " after");
     });
 });
 

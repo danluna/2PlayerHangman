@@ -8,18 +8,18 @@ a {
 }
 
 #header {
-  margin-bottom: 15em;
+  margin-bottom: 10em;
 }
 
 #title {
   font-size: 5em;
 }
 
-#joinArea, #gameArea, #header, #guessButtonArea, #lettersGuessed, #triesRemaining, #waiting {
+#joinArea, #word, #header, #guessButtonArea, #lettersGuessed, #triesRemaining, #waiting, #turn {
   text-align: center;
 }
 
-#game, #waiting{
+#game, #waiting, #guessEmpty{
   visibility: hidden;
 }
 
@@ -44,9 +44,6 @@ a {
 #word {
   font-size: 4em;
   font-weight: bold;
-}
-
-#word {
   margin-bottom: 1em;
 }
 
@@ -54,12 +51,25 @@ a {
   margin-top: 1em;
 }
 
-#lettersGuessed, #triesRemaining {
+#lettersGuessed, #triesRemaining, #guessEmpty{
   font-size: 2em;
   font-weight: bold;
 }
 
 #p2text {
   color: blue;
+}
+
+#turn {
+  font-size: 24px;
+}
+
+#guessEmpty {
+  color: red;
+}
+
+#waitForDisconnect {
+  color: blue;
+  font-weight: bold;
 }
 

@@ -12,7 +12,7 @@
   <body>
       <div class="container">
         <div class-"row" id="header">
-          <div class="col-lg-12">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <h1 id="title"><%= title %></h1>
           </div>
         </div>
@@ -21,6 +21,7 @@
           <div class="col-lg-12" id="joinArea">
             <button class="but btn-success btn-lg" id="joinButton">Join Game</button>
             <p>Players needed to start game: <span id="playersNeeded"></span></p>
+            <p id="waitForDisconnect">Please wait for a player to leave the game</>
           </div>
         </div>
 
@@ -31,18 +32,31 @@
         </div>
         
         <div class="col-lg-offset-2 col-lg-8" id="game">
-          <div class="row" id="gameArea">
-            <div class="col-lg-12">
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <p id="turn">test</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <p id="word">_ _ _ _ P _</p>
             </div>
           </div>
           
           <div class="row">
-            <div class="col-lg-9">
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
               <input id="guess" type="text" placeholder="Guess a letter:" maxlength="1" class="form-control"></input>
             </div>
-            <div class="col-lg-3" id="guessButtonArea">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3" id="guessButtonArea">
               <button class="btn btn-primary btn-lg" id="guessButton">Guess</button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12">
+              <p id="guessEmpty">Please submit a letter!</p>
             </div>
           </div>
 
