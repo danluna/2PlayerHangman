@@ -16,7 +16,6 @@ $(document).ready(function() {
 
   $('#guessButton').click(function() {
     var letter = $('#guess').val();
-    triesLeft--;
 
     // Check that the guess was not empty
     if(letter.length == 0) {
@@ -86,9 +85,10 @@ $(document).ready(function() {
   });
 
   socket.on('letter found', function(word, letter) {
+    triesLeft--;
     $('#word').html(word);
     $('#lettersGuessed').append("" + letter + " ");
-    $('#tries').html(triesRemaining);
+    $('#tries').html(triesLeft);
 
     if(turn) {
       turn = false;
@@ -103,7 +103,8 @@ $(document).ready(function() {
   });
 
   socket.on('wrong guess', function() {
-    $('#tries').html(triesRemaining);
+    triesLeft--;
+    $('#tries').html(triesLeft);
   });
 
   socket.on('game won', function(word) {
