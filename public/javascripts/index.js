@@ -26,7 +26,7 @@ $(document).ready(function() {
     }
     else {
       $('#guessEmpty').css('visibility', 'hidden');
-      socket.emit('guess', letter);
+      socket.emit('guess', letter, triesLeft);
     }
   });
 
@@ -80,8 +80,9 @@ $(document).ready(function() {
   });
 
   socket.on('already guessed', function() {
-    $('#guessWarning').html('That letter has already been guessed. Choose another!');
+    $('#guessWarning').html('That letter has already been guessed!');
     $('#guessWarning').fadeIn(1000);
+    setTimeout(function() { $('#guessWarning').fadeOut(1000); }, 5000);
   });
 
   socket.on('letter found', function(word, letter) {
