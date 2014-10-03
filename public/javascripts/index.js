@@ -27,7 +27,7 @@ $(document).ready(function() {
     }
     else {
       $('#guessEmpty').css('visibility', 'hidden');
-      socket.emit('guess', letter, triesLeft);
+      socket.emit('guess', letter, triesLeft - 1);
     }
   });
 
@@ -121,10 +121,20 @@ $(document).ready(function() {
     }
   });
 
-  socket.on('game won', function(word) {
-    $('#word').html(word);
-    $('#gratz').html("Congratulations!")
-    //$('#turn').html("You and your teammate have won!");
+  // word: The final word (full word if won or empty string if lost)
+  // wonOrLose: Boolean, true is winner, false if loser
+  socket.on('game finished', function(word, winOrLose) {
+
+    // Display message based on winning or losing
+    if(winOrLose) {
+      $('#word').html(word);
+      $('#gratz').html("Congratulations!");
+    }
+    else {
+      $('#word').html("");
+      $('#gratz').html("Game Over");
+    }
+
     $('#gameOverRedirect').html('You will be redirected to the start area in: <span id="counter"></span>');
     $('#guessButtonArea').hide();
     $('#lettersGuessed').hide();

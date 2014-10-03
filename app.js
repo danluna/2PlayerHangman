@@ -77,7 +77,13 @@ io.on('connection', function(socket) {
     });
 
     // Guess button click triggered event
-    socket.on('guess', function(letter) {
+    socket.on('guess', function(letter, triesLeft) {
+
+        // 'Game over' if the players have no tries left
+        if(!triesLeft) {
+            Player1.emit('game finished', "", false);
+            Player2.emit('game finished', "", false);
+        }
 
         var alreadyGuessed = false;
         // Check if this letter has already been guessed
@@ -132,8 +138,8 @@ io.on('connection', function(socket) {
 
                 if(wordComplete) {
                     // Emit game has been won
-                    Player1.emit('game won', wordProgress);
-                    Player2.emit('game won', wordProgress);
+                    Player1.emit('game finished', wordProgress, true);
+                    Player2.emit('game finished', wordProgress, true);
                 }
                 else {  // Emit the new partial word
                     Player1.emit('letter found', wordProgress, letter);
