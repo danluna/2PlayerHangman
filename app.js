@@ -31,11 +31,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // game 
+var words = ["acres", "adult", "border", "calm", "canal", "donkey",
+             "exchange", "garage", "independent", "mathematics", "rubbed",
+             "promised", "mission", "mysterious", "floating", "official",
+             "recall"];
+
 var playersConnected = 0,
     lettersGuessed = [],
     playerTurn = 1,
     playersInGame = 0,
-    word = "testword",
+    word = words[Math.floor(Math.random() * words.length)],
     letterFound = true;
 
 // Boolean array mapping true to word spot already guessed correctly and false otherwise
@@ -65,8 +70,11 @@ io.on('connection', function(socket) {
             Player2 = socket;
             // Tell players we are ready to begin
             // True flag lets the player know if they are 1 or 2
-            Player1.emit('game ready', true, word.length, 8);
-            Player2.emit('game ready', false, word.length, 8);
+            Player1.emit('game ready', true, word.length, word.length + 3);
+            Player2.emit('game ready', false, word.length, word.length + 3);
+
+            // Get a new word for this game
+            word = words[Math.floor(Math.random() * words.length)];
 
             // Tell connections still on home screen that they cannot join
             // the game at this point. (2 players max.)
@@ -176,6 +184,8 @@ io.on('connection', function(socket) {
             if(socket == Player1) {
                 Player1 = Player2;
             }
+
+            lettersFound = new Array(word.length).map(Boolean.prototype.valueOf, false);
         }
   
     });
