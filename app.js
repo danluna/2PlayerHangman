@@ -64,8 +64,8 @@ io.on('connection', function(socket) {
             Player2 = socket;
             // Tell players we are ready to begin
             // True flag lets the player know if they are 1 or 2
-            Player1.emit('game ready', true, word.length);
-            Player2.emit('game ready', false, word.length);
+            Player1.emit('game ready', true, word.length, 8);
+            Player2.emit('game ready', false, word.length, 8);
 
             // Tell connections still on home screen that they cannot join
             // the game at this point. (2 players max.)
@@ -169,6 +169,12 @@ io.on('connection', function(socket) {
             console.log('player disconnected from game!');
             io.emit('player disconnect', Math.abs(playersInGame - 3));
             playersInGame--;
+            lettersGuessed = [];
+            playerTurn = 1;
+
+            if(socket == Player1) {
+                Player1 = Player2;
+            }
         }
   
     });

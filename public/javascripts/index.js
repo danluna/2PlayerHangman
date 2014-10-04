@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var socket = io();
   var turn; // Is it currently our turn?
-  var triesLeft = 8;
+  var triesLeft;
   var inGame = false;
 
   // Hide error and warning messages for now
@@ -29,6 +29,7 @@ $(document).ready(function() {
     }
     else {
       $('#guessEmpty').css('visibility', 'hidden');
+      $('#guess').val("");
       socket.emit('guess', letter, triesLeft - 1);
     }
   });
@@ -50,21 +51,27 @@ $(document).ready(function() {
 
   // Anonymous function recieves a boolean oneOrTwo
   // oneOrTwo: Tells us if this player will have player 1 or 2 status
-  socket.on('game ready', function(oneOrTwo, wordLength) {
+  socket.on('game ready', function(oneOrTwo, wordLength, triesAllowed) {
     $('#waiting').css('visibility', 'hidden');
     $('#game').css('visibility', 'visible');
     $('#game').fadeIn(1000);
+    triesLeft = triesAllowed;
 
     // Create string with empty letter spots of length wordLength
     var wrd = "";
     for (var i = 1; i < wordLength; i++) {
       wrd += "_ ";
     }
+
+    // Set different attributes of the game to 'starter settings'
     $('#word').html(wrd);
+    $('#tries').html(triesLeft);
+    $('#lettersGuessed').html("");
 
     turn = oneOrTwo;
     if(oneOrTwo) {
       $('#turn').html('Your turn!');
+      $('#guessButton').prop('disabled', false);
     }
     else {
       $('#turn').html('Your teammate is currently guessing a letter...');
