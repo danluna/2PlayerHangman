@@ -2,6 +2,7 @@ $(document).ready(function() {
   var socket = io();
   var turn; // Is it currently our turn?
   var triesLeft = 8;
+  var inGame = false;
 
   // Hide error and warning messages for now
   $('#waitForDisconnect').hide();
@@ -13,6 +14,7 @@ $(document).ready(function() {
     $('#waiting').hide();
     $('#waiting').css("visibility", "visible");
     $('#waiting').fadeIn(1000);
+    inGame = true;
   });
 
   $('#guessButton').click(function() {
@@ -77,7 +79,6 @@ $(document).ready(function() {
   socket.on('closeJoin', function() {
     $('#joinButton').prop("disabled", true);
     $('#joinButton').addClass('btn-disabled');
-    $('#waitForDisconnect').fadeIn(1000);
   });
 
   socket.on('already guessed', function() {
@@ -125,6 +126,9 @@ $(document).ready(function() {
   // wonOrLose: Boolean, true is winner, false if loser
   socket.on('game finished', function(word, winOrLose) {
 
+    // Client will no longer be in the game
+    inGame = false;
+
     // Display message based on winning or losing
     if(winOrLose) {
       $('#word').html(word);
@@ -158,6 +162,18 @@ $(document).ready(function() {
       timesRun++;
       counter--;
     }, 1000);
+  });
+
+  socket.on('player disconnect', function(playNeed) {
+    if(inGame) { // Take in game player to the waiting screen
+      $('#waiting').css('visibility', 'visible');
+      $('#game').css('visibility', 'hidden');
+      $('#game').hide();
+    }
+    else {  // This player was is in the start screen
+      $('#playersNeeded').html(playNeed);
+      $('#joinButton').prop('disabled', false);
+    }
   });
  
 });

@@ -160,6 +160,18 @@ io.on('connection', function(socket) {
         }
 
     });
+
+    socket.on('disconnect', function() {
+        
+        // Check if the disconnect came from a player currently in the game
+        // If so, we need to update all other clients
+        if(socket == Player1 || socket == Player2) {
+            console.log('player disconnected from game!');
+            io.emit('player disconnect', Math.abs(playersInGame - 3));
+            playersInGame--;
+        }
+  
+    });
 });
 
 
