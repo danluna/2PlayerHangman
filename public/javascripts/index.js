@@ -162,7 +162,7 @@ $(document).ready(function() {
     var interval = setInterval( function() {
       $('#counter').html(counter);
       if(timesRun==4) { 
-        window.location.href = 'http://localhost:3000';
+        window.location.href = 'http://www.twoplayerhangman.herokuapp.com';
         clearInterval(interval);
       }
 
