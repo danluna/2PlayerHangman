@@ -59,7 +59,7 @@ $(document).ready(function() {
 
     // Create string with empty letter spots of length wordLength
     var wrd = "";
-    for (var i = 1; i < wordLength; i++) {
+    for (var i = 0; i < wordLength; i++) {
       wrd += "_ ";
     }
 
