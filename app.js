@@ -34,7 +34,10 @@ app.use('/', routes);
 var words = ["acres", "adult", "border", "calm", "canal", "donkey",
              "exchange", "garage", "independent", "mathematics", "rubbed",
              "promised", "mission", "mysterious", "floating", "official",
-             "recall"];
+             "recall", "buffalo", "buffoon", "exodus", "gazebo", "ivy", 
+             "jigsaw", "jazzy", "khaki", "zombie", "zigzag",
+             "luxury", "marquis", "sphinx", "topaz", "uptown", "vaporize",
+             "cobweb", "bikini", "abbey", "dwarves", "galaxy", "guffaw", "ivy"];
 
 var playersConnected = 0,
     lettersGuessed = [],
@@ -72,7 +75,7 @@ io.on('connection', function(socket) {
             // Get a new word for this game
             word = words[Math.floor(Math.random() * words.length)];
             lettersFound = new Array(word.length).map(Boolean.prototype.valueOf, false);
-            
+
             // Tell players we are ready to begin
             // True flag lets the player know if they are 1 or 2
             Player1.emit('game ready', true, word.length, word.length + 8);
