@@ -37,7 +37,7 @@ var words = ["acres", "adult", "border", "calm", "canal", "donkey",
              "recall", "buffalo", "buffoon", "exodus", "gazebo", "ivy", 
              "jigsaw", "jazzy", "khaki", "zombie", "zigzag",
              "luxury", "marquis", "sphinx", "topaz", "uptown", "vaporize",
-             "cobweb", "bikini", "abbey", "dwarves", "galaxy", "guffaw", "ivy"];
+             "cobweb", "bikini", "abbey", "dwarves", "galaxy", "guffaw"];
 
 var playersConnected = 0,
     lettersGuessed = [],
