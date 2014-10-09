@@ -4,6 +4,9 @@ Connect to the game with a partner and collaboratively attempt to guess the word
 
 http://twoplayerhangman.herokuapp.com/
 
+Run:
+  - node app.js
+
 Tech: 
   - Socket.io 
   - Node.js 
