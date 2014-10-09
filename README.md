@@ -6,6 +6,7 @@ http://twoplayerhangman.herokuapp.com/
 
 Run:
   - node app.js
+  - Connect on localhost:3000
 
 Tech: 
   - Socket.io 
