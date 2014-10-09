@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var wordsFile = require('./public/data/words');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -20,8 +21,6 @@ server.listen(app.get('port'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -30,14 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 
-// game 
-var words = ["acres", "adult", "border", "calm", "canal", "donkey",
-             "exchange", "garage", "independent", "mathematics", "rubbed",
-             "promised", "mission", "mysterious", "floating", "official",
-             "recall", "buffalo", "buffoon", "exodus", "gazebo", "ivy", 
-             "jigsaw", "jazzy", "khaki", "zombie", "zigzag",
-             "luxury", "marquis", "sphinx", "topaz", "uptown", "vaporize",
-             "cobweb", "bikini", "abbey", "dwarves", "galaxy", "guffaw"];
+// GAME
+var words = wordsFile.words;
 
 var playersConnected = 0,
     lettersGuessed = [],
@@ -46,12 +39,11 @@ var playersConnected = 0,
     word = words[Math.floor(Math.random() * words.length)],
     letterFound = true;
 
-// Boolean array mapping true to word spot already guessed correctly and false otherwise
-var lettersFound; // = new Array(word.length).map(Boolean.prototype.valueOf, false);
 
-var Player1, Player2;  // Stores Socket for joined players
+var lettersFound, 
+    Player1, Player2;  // Stores Socket for joined players
     
-
+// socket io
 io.on('connection', function(socket) {
     console.log('connected');
 
