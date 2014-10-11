@@ -1,13 +1,16 @@
-2 Player Hangman
+Two Player Hangman
 
-Connect to the game with a friend and collaboratively attempt to guess the word before your tries run out. 
+Connect to the game with a partner and collaboratively attempt to guess the word before your tries run out. 
 
+http://twoplayerhangman.herokuapp.com/
 
+Run:
+  - node app.js
+  - Connect on localhost:3000
 
-Made with: 
-
-Socket.io
-Node.js
-Express.js
-jQuery
-Bootstrap
+Tech: 
+  - Socket.io 
+  - Node.js 
+  - Express.js
+  - jQuery
+  - Bootstrap
