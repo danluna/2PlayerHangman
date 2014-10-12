@@ -14,3 +14,4 @@ Tech:
   - Express.js
   - jQuery
   - Bootstrap
+  - ejs
