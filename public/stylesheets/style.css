@@ -13,6 +13,7 @@ a {
 
 #title {
   font-size: 5em;
+  color: #404040;
 }
 
 #joinArea, #word, #header, #guessButtonArea, #lettersGuessed, 
@@ -59,6 +60,8 @@ a {
 
 #turn {
   font-size: 24px;
+  color: #555555;
+  font-weight: bold;
 }
 
 #guessEmpty {
@@ -75,9 +78,5 @@ a {
 
 #gratz, #gameOverRedirect, #waitForDisconnect {
   font-weight: bold;
-}
-
-#turn {
-  color: blue;
 }
 
