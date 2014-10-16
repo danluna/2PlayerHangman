@@ -30,6 +30,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 
 // GAME
+
+// Extract words from file
 var words = wordsFile.words;
 
 var playersConnected = 0,
@@ -40,8 +42,10 @@ var playersConnected = 0,
     letterFound = true;
 
 
-var lettersFound, 
-    Player1, Player2;  // Stores Socket for joined players
+var lettersFound; 
+    
+// Stores Socket for joined players
+var Player1, Player2;  
     
 // socket io
 io.on('connection', function(socket) {
@@ -66,6 +70,8 @@ io.on('connection', function(socket) {
 
             // Get a new word for this game
             word = words[Math.floor(Math.random() * words.length)];
+
+            // Fill array with 'false', indicating letter positions which have been guessed
             lettersFound = new Array(word.length).map(Boolean.prototype.valueOf, false);
 
             // Tell players we are ready to begin
