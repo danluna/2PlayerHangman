@@ -5,4 +5,5 @@ exports.words = ["acres", "adult", "border", "calm", "canal", "donkey",
              "jigsaw", "jazzy", "khaki", "zombie", "zigzag",
              "luxury", "marquis", "sphinx", "topaz", "uptown", "vaporize",
              "cobweb", "bikini", "abbey", "dwarves", "galaxy", "guffaw",
-             "minimal", "selection", "passed", "trip", "studying", "pumpkin"];
+             "minimal", "selection", "passed", "trip", "studying", "pumpkin",
+             "dubhacks"];
